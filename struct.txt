@@ -1,0 +1,72 @@
+#include <stdio.h>
+#include <string.h>
+
+struct Aluno{
+  char nome[100];
+  int RA;
+  float nota;
+  float freq;
+};
+
+int main(){
+  int n;
+  printf("Quantos alunos serão cadastrados? ");
+  scanf("%d",&n);
+  getchar();
+  struct Aluno alunos[n];
+
+ for(int i=0;i<n;i++){
+  printf("Nome aluno %d:", i+1);
+  fgets(alunos[i].nome,sizeof(alunos[i].nome),stdin);
+  printf("RA aluno %d: ",i+1);
+  scanf("%d",&alunos[i].RA);
+  printf("Nota aluno %d: ",i+1);
+  scanf("%f",&alunos[i].nota);
+  printf("Frequência aluno %d: ",i+1);
+  scanf("%f",&alunos[i].freq);
+  getchar();
+  }
+ 
+ for(int i=0;i<n;i++){
+  printf("Nome: %s", alunos[i].nome);
+  printf("RA: %d\n",alunos[i].RA);
+  printf("Nota: %.2f\n",alunos[i].nota);
+  printf("Frequência:%.2f\n",alunos[i].freq);
+  }
+
+  int ra;
+  printf("Digite o RA que deseja buscar:");
+  scanf("%d",&ra);
+  
+  for(int i=0;i<n;i++){
+    if(alunos[i].RA==ra){
+      printf("Nome: %s", alunos[i].nome);
+      printf("Nota: %.2f\n",alunos[i].nota);
+      printf("Frequência:%.2f\n",alunos[i].freq);
+      break;
+    }
+  }
+
+  printf("Digite o RA que deseja remover: ");
+  scanf("%d",&ra);
+
+  for(int i=0;i<n;i++){
+    if(alunos[i].RA==ra){
+      for(int j=i;j<n-1;j++){
+        alunos[j]=alunos[j+1];
+      }
+      n--;
+      break;
+    }
+  }
+
+  for(int i=0;i<n;i++){
+    printf("Nome: %s", alunos[i].nome);
+    printf("RA: %d\n",alunos[i].RA);
+    printf("Nota: %.2f\n",alunos[i].nota);
+    printf("Frequência:%.2f\n",alunos[i].freq);
+  }
+  
+  return 0;
+ }
+ 
