@@ -8,16 +8,64 @@ typedef struct{
   float freq;
 }Aluno;
 
-void imprimeMenu();
-void insereAluno(Aluno alunos[],int n,int RA);
-int buscarRA(Aluno alunos[],int n,int RA);
-void imprimeDados(Aluno alunos[],int n);
-int removeAluno(Aluno alunos[],int n,int RA);
+void imprimeMenu(){
+    printf("\nMenu:\n");
+    printf("1 - Inserir aluno\n");
+    printf("2 - Imprimir turma\n");
+    printf("3 - Buscar aluno\n");
+    printf("4 - Remover aluno\n");
+    printf("5 - Sair\n");
+    printf("Opção: ");
+}
+
+void insereAluno(Aluno alunos[],int n,int RA){
+  alunos[n].RA=RA;
+  printf("Nome: ");
+  fgets(alunos[n].nome,sizeof(alunos[n].nome),stdin);
+  alunos[n].nome[strlen(alunos[n].nome)-1]='\0';
+  printf("Nota: ");
+  scanf("%f",&alunos[n].nota);
+  printf("Frequência: ");
+  scanf("%f",&alunos[n].freq);
+  getchar();
+  }
+
+int buscarRA(Aluno alunos[],int n,int RA){
+  for(int i=0;i<n;i++){
+    if(alunos[i].RA==RA){
+      return 1;
+    }
+  }
+  return 0;
+}
+
+void imprimeDados(Aluno alunos[],int n){
+  for(int i=0;i<n;i++){
+    printf("Nome: %s\n", alunos[i].nome);
+    printf("RA: %d\n",alunos[i].RA);
+    printf("Nota: %.2f\n",alunos[i].nota);
+    printf("Frequência:%.2f\n",alunos[i].freq);
+  }
+}
+
+int removeAluno(Aluno alunos[],int n,int RA){
+  for(int i=0;i<n;i++){
+    if(alunos[i].RA==RA){
+      for(int j=i;j<n-1;j++){
+        alunos[j]=alunos[j+1];
+      }
+      printf("Aluno removido com sucesso!");
+      return n-1;
+    }
+  }
+  printf("RA não encontrado.\n");
+  return n;
+ }
 
 int main(){
   int op=0;  
   int n=0, RA;
-  Aluno alunos[3];
+  Aluno alunos[50];
 
   while(op!=5){
     imprimeMenu();
@@ -25,7 +73,7 @@ int main(){
     switch(op){
       
       case 1:
-        if(n==3){
+        if(n==50){
           printf("Turma cheia!\n");
           break;
         }
@@ -64,7 +112,7 @@ int main(){
     
       case 4:
         printf("Digite RA que deseja remover: ");
-         scanf("%d",&RA);
+        scanf("%d",&RA);
         n=removeAluno(alunos,n,RA);
         break;
     
@@ -78,58 +126,4 @@ int main(){
     }
   }
   return 0;
-}
-
-void insereAluno(Aluno alunos[],int n,int RA){
-  alunos[n].RA=RA;
-  printf("Nome: ");
-  fgets(alunos[n].nome,sizeof(alunos[n].nome),stdin);
-  alunos[n].nome[strlen(alunos[n].nome)-1]='\0';
-  printf("Nota: ");
-  scanf("%f",&alunos[n].nota);
-  printf("Frequência: ");
-  scanf("%f",&alunos[n].freq);
-  getchar();
-  }
-
-int buscarRA(Aluno alunos[],int n, int RA){
-  for(int i=0;i<n;i++){
-    if(alunos[i].RA==RA){
-      return 1;
-    }
-  }
-  return 0;
-}
-
-void imprimeDados(Aluno alunos[],int n){
-  for(int i=0;i<n;i++){
-    printf("Nome: %s\n", alunos[i].nome);
-    printf("RA: %d\n",alunos[i].RA);
-    printf("Nota: %.2f\n",alunos[i].nota);
-    printf("Frequência:%.2f\n",alunos[i].freq);
-  }
-}
-
-int removeAluno(Aluno alunos[],int n, int RA){
-  for(int i=0;i<n;i++){
-    if(alunos[i].RA==RA){
-      for(int j=i;j<n-1;j++){
-        alunos[j]=alunos[j+1];
-      }
-      printf("Aluno removido com sucesso");
-      return n-1;
-    }
-  }
-  printf("RA não encontrado.\n");
-  return n;
- }
- 
-void imprimeMenu(){
-    printf("\n------ MENU ------\n");
-    printf("1 - Inserir aluno\n");
-    printf("2 - Imprimir turma\n");
-    printf("3 - Buscar aluno\n");
-    printf("4 - Remover aluno\n");
-    printf("5 - Sair\n");
-    printf("Opcao: ");
 }
